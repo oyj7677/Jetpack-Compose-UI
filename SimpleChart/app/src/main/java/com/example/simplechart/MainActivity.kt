@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             SimpleChartTheme {
-                Ex1_2()
+                Ex1_3()
             }
         }
     }

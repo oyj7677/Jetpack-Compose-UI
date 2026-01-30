@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.example.simplechart.ui.theme.SimpleChartTheme
 
 @Composable
-fun Ex1_1(modifier: Modifier = Modifier) {
+fun Ex1_1() {
 
     Box(
         modifier = Modifier.fillMaxSize(),

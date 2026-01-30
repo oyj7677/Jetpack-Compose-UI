@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -26,9 +27,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.simplechart.ui.theme.SimpleChartTheme
+import kotlinx.coroutines.delay
 
 @Composable
-fun Ex1_2() {
+fun Ex1_3() {
 
     val barDataList = listOf(0.2f, 0.4f, 0.6f, 0.8f, 1.0f)
     val fullHeight = 600.dp
@@ -45,17 +47,18 @@ fun Ex1_2() {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Bottom
         ) {
-            barDataList.forEach { it ->
+            barDataList.forEachIndexed { index, it ->
 
                 var resultHeight by remember { mutableStateOf(0.dp) }
 
                 LaunchedEffect(true) {
+                    delay(500L * index)
                     resultHeight = fullHeight * it
                 }
 
                 val animateHeight by animateDpAsState(
                     targetValue = resultHeight,
-                    animationSpec = tween(durationMillis = 3000, easing = FastOutSlowInEasing)
+                    animationSpec = tween(durationMillis = 1000, easing = FastOutSlowInEasing)
                 )
 
                 Column(
@@ -78,12 +81,14 @@ fun Ex1_2() {
             }
         }
     }
+
 }
+
 
 @Preview(showBackground = true)
 @Composable
-private fun Ex1_2_previve() {
+private fun Ex1_3_Preview() {
     SimpleChartTheme {
-        Ex1_2()
+        Ex1_3()
     }
 }
