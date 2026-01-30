@@ -19,12 +19,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             SimpleChartTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                Ex1_2()
             }
         }
     }
