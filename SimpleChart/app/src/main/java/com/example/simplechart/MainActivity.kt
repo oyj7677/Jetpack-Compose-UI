@@ -10,7 +10,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SimpleChartTheme {
-                Ex1_8()
+                Ex1_9()
             }
         }
     }
