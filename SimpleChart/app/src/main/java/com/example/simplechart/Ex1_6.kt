@@ -26,10 +26,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.simplechart.ui.theme.SimpleChartTheme
-import kotlinx.coroutines.delay
 
 @Composable
-fun Ex1_6() {
+fun Ex1_5() {
 
     val barDataList = listOf(0.2f, 0.4f, 0.6f, 0.8f, 1.0f)
     val fullWidth = 320.dp
@@ -43,17 +42,16 @@ fun Ex1_6() {
             verticalArrangement = Arrangement.SpaceBetween
         ) {
 
-            barDataList.forEachIndexed { index, it ->
+            barDataList.forEach {
 
                 var resultWidth by remember { mutableStateOf(0.dp) }
 
                 val animateWidth by animateDpAsState(
                     targetValue = resultWidth,
-                    animationSpec = tween(durationMillis = 1000, easing = FastOutSlowInEasing)
+                    animationSpec = tween(durationMillis = 3000, easing = FastOutSlowInEasing)
                 )
 
                 LaunchedEffect(true) {
-                    delay(1000L * index)
                     resultWidth = fullWidth * it
                 }
 
@@ -82,8 +80,8 @@ fun Ex1_6() {
 
 @Preview(showBackground = true)
 @Composable
-private fun Ex1_6_Preview() {
+private fun Ex1_5_Preview() {
     SimpleChartTheme {
-        Ex1_6()
+        Ex1_5()
     }
 }
