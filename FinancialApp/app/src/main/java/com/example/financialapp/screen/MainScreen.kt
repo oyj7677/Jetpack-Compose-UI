@@ -16,6 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,6 +37,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
         Header()
         TopMenu()
         TopMenuBottom()
+        SpendThisMonth()
     }
 }
 
@@ -132,6 +135,51 @@ fun TopMenuBottom() {
 
         }
     }
+}
+
+@Composable
+fun SpendThisMonth() {
+    Row(
+        modifier = Modifier
+            .padding(10.dp)
+    ) {
+        FaIcon(
+            faIcon = FaIcons.CaretLeft,
+            tint = Color.White,
+            modifier = Modifier.padding(start = 10.dp, top = 1.5.dp, end = 5.dp)
+        )
+
+        Text(
+            text = "11월 소비",
+            color = Color.White,
+            fontSize = 15.sp,
+            modifier = Modifier
+                .padding(start = 5.dp, end = 5.dp),
+            textDecoration = TextDecoration.Underline
+        )
+
+        FaIcon(
+            faIcon = FaIcons.CaretRight,
+            tint = Color.White,
+            modifier = Modifier.padding(start = 5.dp, top = 1.5.dp, end = 5.dp)
+        )
+    }
+
+    Text(
+        text = "1,000,000원",
+        color = Color.White,
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(start = 20.dp)
+    )
+
+    Text(
+        text = "계좌에서 쓴 금액 포함",
+        color = Color.Gray,
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(start = 20.dp, top = 10.dp)
+    )
 }
 
 @Preview(showBackground = true)
