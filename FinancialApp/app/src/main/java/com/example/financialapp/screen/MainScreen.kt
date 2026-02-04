@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,6 +39,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
         TopMenu()
         TopMenuBottom()
         SpendThisMonth()
+        SendThisMonthProgressBar()
     }
 }
 
@@ -181,6 +183,59 @@ fun SpendThisMonth() {
         modifier = Modifier.padding(start = 20.dp, top = 10.dp)
     )
 }
+
+
+@Composable
+fun SendThisMonthProgressBar() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 20.dp, start = 20.dp, end = 20.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .padding(end = 5.dp)
+                .weight(1f)
+                .height(30.dp)
+                .background(Color.Red, shape = RoundedCornerShape(topStart = 5.dp, bottomStart = 5.dp)),
+        ) {
+
+        }
+
+        Box(
+            modifier = Modifier
+                .padding(end = 5.dp)
+                .weight(1f)
+                .height(30.dp)
+                .background(Color.Gray),
+        ) {
+
+        }
+
+        Box(
+            modifier = Modifier
+                .padding(end = 5.dp)
+                .weight(1f)
+                .height(30.dp)
+                .background(Color.Blue),
+        ) {
+
+        }
+
+        Box(
+            modifier = Modifier
+                .padding(end = 5.dp)
+                .weight(1f)
+                .height(30.dp)
+                .background(Color.Green, shape = RoundedCornerShape(topEnd = 5.dp, bottomEnd = 5.dp)),
+        ) {
+
+        }
+
+
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable
