@@ -1,11 +1,14 @@
 package com.example.financialapp.screen
 
+import android.util.Log
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,8 +21,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -30,6 +35,8 @@ import com.example.financialapp.R
 import com.example.financialapp.ui.theme.FinancialAppTheme
 import com.guru.fontawesomecomposelib.FaIcon
 import com.guru.fontawesomecomposelib.FaIcons
+
+private const val TAG = "MainScreen"
 
 @Composable
 fun MainScreen(modifier: Modifier = Modifier) {
@@ -46,6 +53,11 @@ fun MainScreen(modifier: Modifier = Modifier) {
         SpendThisMonth()
         SendThisMonthProgressBar()
         SpendThisMonthCategoryList()
+        SpaceGray()
+        SpendGraphHeader()
+        SpendGraph()
+        SpaceGray()
+
     }
 }
 
@@ -189,7 +201,6 @@ fun SpendThisMonth() {
         modifier = Modifier.padding(start = 20.dp, top = 10.dp)
     )
 }
-
 
 @Composable
 fun SendThisMonthProgressBar() {
@@ -417,6 +428,83 @@ fun SpendThisMonthCategoryList() {
     }
 }
 
+@Composable
+fun SpaceGray() {
+    Box(
+        modifier = Modifier
+            .padding(top = 20.dp, bottom = 20.dp)
+            .fillMaxWidth()
+            .height(10.dp)
+            .background(Color.DarkGray)
+    )
+}
+
+@Composable
+fun SpendGraphHeader() {
+    Text(
+        text = "이번달",
+        color = Color.White,
+        modifier = Modifier.padding(start = 15.dp)
+    )
+}
+
+@Composable
+fun SpendGraph() {
+    val dotPositions = listOf(400f, 300f, 750f, 600f, 800f)
+    val dotPositionsNew = listOf(500f, 150f, 300f)
+
+    Canvas(
+        modifier = Modifier
+            .height(200.dp)
+            .fillMaxWidth()
+            .padding(15.dp)
+    ) {
+        val width = size.width
+        val height = size.height
+        Log.d(TAG, "SpendGraph: width: $width, height: $height")
+        val maxPosition = dotPositions.max()
+        val minPosition = dotPositions.min()
+
+        // x y
+        val positionMap = dotPositions.mapIndexed { index, value ->
+            val x = (width / (dotPositions.size - 1)) * index
+            val y = height - (height * (value - minPosition) / (maxPosition - minPosition))
+
+            x to y
+        }
+
+        val positionMapNew = dotPositionsNew.mapIndexed { index, value ->
+            val x = (width / (dotPositions.size - 1)) * index
+            val y = height - (height * (value - minPosition) / (maxPosition - minPosition))
+
+            x to y
+        }
+        Log.d(TAG, "SpendGraph: x y positions: $positionMap")
+        positionMap.zipWithNext { a, b ->
+            drawLine(
+                color = Color.Gray,
+                start = Offset(a.first, a.second),
+                end = Offset(b.first, b.second),
+                strokeWidth = 5f,
+                cap = Stroke.DefaultCap
+            )
+        }
+        positionMapNew.zipWithNext { a, b ->
+            drawLine(
+                color = Color.Blue,
+                start = Offset(a.first, a.second),
+                end = Offset(b.first, b.second),
+                strokeWidth = 5f,
+                cap = Stroke.DefaultCap
+            )
+        }
+    }
+
+    Spacer(
+        modifier = Modifier.padding(20.dp)
+    )
+}
+
 
 @Preview(showBackground = true)
 @Composable
@@ -425,3 +513,4 @@ private fun MainScreenPreview() {
         MainScreen()
     }
 }
+
