@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -57,7 +58,8 @@ fun MainScreen(modifier: Modifier = Modifier) {
         SpendGraphHeader()
         SpendGraph()
         SpaceGray()
-
+        SpendThisMonthInsuranceHeader()
+        SpendThisMonthInsuranceGraph()
     }
 }
 
@@ -505,6 +507,92 @@ fun SpendGraph() {
     )
 }
 
+@Composable
+fun SpendThisMonthInsuranceHeader() {
+
+    Text(
+        text = "매달 내는 보험료 적절할까요?",
+        color = Color.White,
+        modifier = Modifier.padding(start = 15.dp)
+    )
+}
+
+@Composable
+fun SpendThisMonthInsuranceGraph() {
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 30.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.Bottom
+    ) {
+
+        Box(
+            modifier = Modifier
+                .width(80.dp)
+        ) {
+            // 왼쪽 박스
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "과잉",
+                    color = Color.White
+                )
+
+                Box(
+                    modifier = Modifier
+                        .padding(top = 20.dp)
+                        .width(60.dp)
+                        .height(160.dp)
+                        .background(Color.Red)
+                )
+
+                Text(
+                    text = "600,000원",
+                    color = Color.White,
+                    modifier = Modifier.padding(top = 20.dp)
+                )
+            }
+        }
+
+        // 오른쪽 박스
+        Box(
+            modifier = Modifier
+                .width(80.dp)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "부족",
+                    color = Color.White
+                )
+
+                Box(
+                    modifier = Modifier
+                        .padding(top = 20.dp)
+                        .width(60.dp)
+                        .height(40.dp)
+                        .background(Color.Blue)
+                )
+
+                Text(
+                    text = "???,???원",
+                    color = Color.White,
+                    modifier = Modifier.padding(top = 20.dp)
+                )
+            }
+        }
+    }
+
+    Spacer(
+        modifier = Modifier.padding(20.dp)
+    )
+}
 
 @Preview(showBackground = true)
 @Composable
