@@ -76,26 +76,6 @@ fun MainScreen(modifier: Modifier = Modifier) {
         item { SpendThisMonthInsuranceHeader() }
         item { SpendThisMonthInsuranceGraph() }
     }
-
-//    Column(
-//        modifier = modifier
-//            .fillMaxSize()
-//            .verticalScroll(rememberScrollState())
-//            .background(Color.Black)
-//    ) {
-//        Header()
-//        TopMenu()
-//        TopMenuBottom()
-//        SpendThisMonth()
-//        SendThisMonthProgressBar()
-//        SpendThisMonthCategoryList()
-//        SpaceGray()
-//        SpendGraphHeader()
-//        SpendGraph()
-//        SpaceGray()
-//        SpendThisMonthInsuranceHeader()
-//        SpendThisMonthInsuranceGraph()
-//    }
 }
 
 @Composable
@@ -223,7 +203,7 @@ fun SpendThisMonth() {
     }
 
     TextAnimation(
-        targetValue = 1000000,
+        targetValue = 3000000,
         textColor = Color.White,
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold,
@@ -282,53 +262,6 @@ fun SendThisMonthProgressBar() {
     LaunchedEffect(Unit) {
         startAnimation = true
     }
-
-
-//    Row(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .padding(top = 20.dp, start = 20.dp, end = 20.dp)
-//    ) {
-//        Box(
-//            modifier = Modifier
-//                .padding(end = 5.dp)
-//                .weight(7f)
-//                .height(30.dp)
-//                .background(Color.Red, shape = RoundedCornerShape(topStart = 5.dp, bottomStart = 5.dp)),
-//        ) {
-//
-//        }
-//
-//        Box(
-//            modifier = Modifier
-//                .padding(end = 5.dp)
-//                .weight(1f)
-//                .height(30.dp)
-//                .background(Color.Gray),
-//        ) {
-//
-//        }
-//
-//        Box(
-//            modifier = Modifier
-//                .padding(end = 5.dp)
-//                .weight(1f)
-//                .height(30.dp)
-//                .background(Color.Blue),
-//        ) {
-//
-//        }
-//
-//        Box(
-//            modifier = Modifier
-//                .padding(end = 5.dp)
-//                .weight(1f)
-//                .height(30.dp)
-//                .background(Color.Green, shape = RoundedCornerShape(topEnd = 5.dp, bottomEnd = 5.dp)),
-//        ) {
-//
-//        }
-//    }
 }
 
 @Composable
