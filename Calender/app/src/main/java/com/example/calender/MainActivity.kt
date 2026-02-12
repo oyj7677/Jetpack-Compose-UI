@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -121,7 +122,7 @@ fun CalenderDayList(modifier: Modifier = Modifier) {
     val thisMonthWeeksCount = (thisMonthDayMax + thisMonthFirstDay + 6) / 7 // 필요한 주 수
 
     Column(
-        modifier = modifier
+        modifier = modifier.padding(top = 20.dp)
     ) {
         repeat(thisMonthWeeksCount) { week ->
             Row() {
@@ -134,28 +135,53 @@ fun CalenderDayList(modifier: Modifier = Modifier) {
                             modifier = Modifier
                                 .weight(1f)
                                 .height(60.dp)
-                                .border(1.dp, Color.Gray)
+                                .border(1.dp, Color.Gray),
+                            contentAlignment = Alignment.Center
                         ) {
-                            Text(
-                                text = resultDay.toString(),
-                                fontSize = 14.sp
-                            )
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize(),
+                                verticalArrangement = Arrangement.Top
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(20.dp)
+                                        .background(Color(0xFFF89CFF0))
+                                )
+
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxSize(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = resultDay.toString(),
+                                        fontSize = 14.sp
+                                    )
+                                }
+                            }
                         }
                     } else {
                         // 범위 밖
-                        Box(
+                        Column(
                             modifier = Modifier
-                                .weight(1f)
-                                .height(60.dp)
-                                .border(1.dp, Color.Gray)
+                                .fillMaxSize(),
+                            verticalArrangement = Arrangement.Top
                         ) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(20.dp)
+                                    .background(Color(0xFF89CFF0))
+                            ) {
 
+                            }
                         }
                     }
                 }
-            }
 
+            }
         }
     }
-
 }
