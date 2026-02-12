@@ -1,6 +1,7 @@
 package com.example.financialapp.screen
 
 import android.util.Log
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
@@ -49,6 +50,7 @@ import com.example.financialapp.animation.TextAnimation
 import com.example.financialapp.ui.theme.FinancialAppTheme
 import com.guru.fontawesomecomposelib.FaIcon
 import com.guru.fontawesomecomposelib.FaIcons
+import kotlinx.coroutines.delay
 
 private const val TAG = "MainScreen"
 
@@ -598,10 +600,38 @@ fun SpendThisMonthInsuranceHeader() {
 @Composable
 fun SpendThisMonthInsuranceGraph() {
 
+    var leftBoxHeight by remember { mutableStateOf(160.dp) }
+    var rifhtBoxHeight by remember { mutableStateOf(40.dp) }
+
+    val animatedLeftBoxHeight = animateDpAsState(
+        targetValue = leftBoxHeight,
+        animationSpec = tween(durationMillis = 1000)
+    )
+
+    val animatedRightBoxHeight = animateDpAsState(
+        targetValue = rifhtBoxHeight,
+        animationSpec = tween(durationMillis = 1000)
+    )
+
+    LaunchedEffect(Unit) {
+        while (true) {
+            leftBoxHeight = 40.dp
+            rifhtBoxHeight = 160.dp
+
+            delay(1000)
+
+            leftBoxHeight = 160.dp
+            rifhtBoxHeight = 40.dp
+            delay(1000)
+        }
+
+    }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 30.dp),
+            .padding(top = 30.dp)
+            .height(250.dp),
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.Bottom
     ) {
@@ -624,8 +654,11 @@ fun SpendThisMonthInsuranceGraph() {
                     modifier = Modifier
                         .padding(top = 20.dp)
                         .width(60.dp)
-                        .height(160.dp)
-                        .background(Color.Red)
+                        .height(animatedLeftBoxHeight.value)
+                        .background(
+                            color = Color.Red,
+                            shape = RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp)
+                        )
                 )
 
                 Text(
@@ -654,8 +687,11 @@ fun SpendThisMonthInsuranceGraph() {
                     modifier = Modifier
                         .padding(top = 20.dp)
                         .width(60.dp)
-                        .height(40.dp)
-                        .background(Color.Blue)
+                        .height(animatedRightBoxHeight.value)
+                        .background(
+                            color = Color.Blue,
+                            shape = RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp)
+                        )
                 )
 
                 Text(
