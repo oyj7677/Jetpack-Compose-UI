@@ -45,5 +45,4 @@ fun TextAnimation(
         fontWeight = fontWeight,
         modifier = Modifier.padding(padding)
     )
-
 }

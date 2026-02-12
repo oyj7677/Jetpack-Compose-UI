@@ -1,7 +1,10 @@
 package com.example.financialapp.screen
 
 import android.util.Log
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -506,6 +509,16 @@ fun SpendGraph() {
     val dotPositions = listOf(400f, 300f, 750f, 600f, 800f)
     val dotPositionsNew = listOf(500f, 150f, 300f)
 
+    // 2. 찍은 점이 번쩍전쩍 하기
+    val showHideEffect = rememberInfiniteTransition()
+    val showHideAnimation = showHideEffect.animateFloat(
+        initialValue = 0f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1000)
+        )
+    )
+
     Canvas(
         modifier = Modifier
             .height(200.dp)
@@ -526,12 +539,7 @@ fun SpendGraph() {
             x to y
         }
 
-        val positionMapNew = dotPositionsNew.mapIndexed { index, value ->
-            val x = (width / (dotPositions.size - 1)) * index
-            val y = height - (height * (value - minPosition) / (maxPosition - minPosition))
 
-            x to y
-        }
         Log.d(TAG, "SpendGraph: x y positions: $positionMap")
         positionMap.zipWithNext { a, b ->
             drawLine(
@@ -542,6 +550,15 @@ fun SpendGraph() {
                 cap = Stroke.DefaultCap
             )
         }
+
+        val positionMapNew = dotPositionsNew.mapIndexed { index, value ->
+            val x = (width / (dotPositions.size - 1)) * index
+            val y = height - (height * (value - minPosition) / (maxPosition - minPosition))
+
+            x to y
+        }
+
+        // 새로운 그래프 그리기
         positionMapNew.zipWithNext { a, b ->
             drawLine(
                 color = Color.Blue,
@@ -549,6 +566,16 @@ fun SpendGraph() {
                 end = Offset(b.first, b.second),
                 strokeWidth = 5f,
                 cap = Stroke.DefaultCap
+            )
+        }
+
+        // 점찍기
+        positionMapNew.lastOrNull().let {
+            drawCircle(
+                color = Color.Blue,
+                radius = 13f,
+                center = Offset(it?.first ?: 0f, it?.second ?: 0f),
+                alpha = showHideAnimation.value
             )
         }
     }
