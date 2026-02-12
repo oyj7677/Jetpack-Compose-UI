@@ -22,9 +22,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -57,25 +56,46 @@ private const val TAG = "MainScreen"
 @Composable
 fun MainScreen(modifier: Modifier = Modifier) {
 
-    Column(
-        modifier = modifier
+    LazyColumn(
+        modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .background(Color.Black)
+            .background(
+                color = Color.Black
+            )
     ) {
-        Header()
-        TopMenu()
-        TopMenuBottom()
-        SpendThisMonth()
-        SendThisMonthProgressBar()
-        SpendThisMonthCategoryList()
-        SpaceGray()
-        SpendGraphHeader()
-        SpendGraph()
-        SpaceGray()
-        SpendThisMonthInsuranceHeader()
-        SpendThisMonthInsuranceGraph()
+        item { Header() }
+        item { TopMenu() }
+        item { TopMenuBottom() }
+        item { SpendThisMonth() }
+        item { SendThisMonthProgressBar() }
+        item { SpendThisMonthCategoryList() }
+        item { SpaceGray() }
+        item { SpendGraphHeader() }
+        item { SpendGraph() }
+        item { SpaceGray() }
+        item { SpendThisMonthInsuranceHeader() }
+        item { SpendThisMonthInsuranceGraph() }
     }
+
+//    Column(
+//        modifier = modifier
+//            .fillMaxSize()
+//            .verticalScroll(rememberScrollState())
+//            .background(Color.Black)
+//    ) {
+//        Header()
+//        TopMenu()
+//        TopMenuBottom()
+//        SpendThisMonth()
+//        SendThisMonthProgressBar()
+//        SpendThisMonthCategoryList()
+//        SpaceGray()
+//        SpendGraphHeader()
+//        SpendGraph()
+//        SpaceGray()
+//        SpendThisMonthInsuranceHeader()
+//        SpendThisMonthInsuranceGraph()
+//    }
 }
 
 @Composable
@@ -319,7 +339,7 @@ fun SpendThisMonthCategoryList() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 10.dp),
+                .padding(top = 40.dp),
             horizontalArrangement = (Arrangement.SpaceBetween),
             verticalAlignment = Alignment.CenterVertically
         ) {
